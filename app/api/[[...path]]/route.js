@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
+import { notifyAdmin, sendWhatsAppText, formatBookingAlert, formatCustomAlert, formatContactAlert, formatCustomerBookingConfirm } from '@/lib/whatsapp'
 
 let clientPromise = null
 
@@ -231,6 +232,15 @@ async function handleRoute(request, { params }) {
       return handleCORS(NextResponse.json(clean(s) || {}))
     }
 
+    // Public lookup by booking ref (used by voucher PDF on success page)
+    const brMatch = route.match(/^\/bookings\/lookup\/([\w-]+)$/)
+    if (brMatch && method === 'GET') {
+      const b = await db.collection('bookings').findOne({ bookingRef: brMatch[1] })
+      if (!b) return handleCORS(NextResponse.json({ error: 'Not found' }, { status: 404 }))
+      const tour = b.tourId ? await db.collection('tours').findOne({ id: b.tourId }) : null
+      return handleCORS(NextResponse.json({ booking: clean(b), tour: clean(tour) }))
+    }
+
     if (route === '/bookings' && method === 'POST') {
       const b = await request.json()
       if (!b.fullName || !b.email || !b.phone || !b.tourId) {
@@ -257,6 +267,9 @@ async function handleRoute(request, { params }) {
         createdAt: new Date(),
       }
       await db.collection('bookings').insertOne(doc)
+      // Fire-and-forget WhatsApp notifications
+      notifyAdmin(formatBookingAlert(doc, tour)).catch(() => {})
+      if (doc.whatsapp) sendWhatsAppText(doc.whatsapp, formatCustomerBookingConfirm(doc, tour)).catch(() => {})
       return handleCORS(NextResponse.json(clean(doc)))
     }
 
@@ -270,6 +283,7 @@ async function handleRoute(request, { params }) {
         createdAt: new Date(),
       }
       await db.collection('custom_tours').insertOne(doc)
+      notifyAdmin(formatCustomAlert(doc)).catch(() => {})
       return handleCORS(NextResponse.json(clean(doc)))
     }
 
@@ -277,6 +291,7 @@ async function handleRoute(request, { params }) {
       const b = await request.json()
       const doc = { id: uuidv4(), ...b, read: false, createdAt: new Date() }
       await db.collection('contacts').insertOne(doc)
+      notifyAdmin(formatContactAlert(doc)).catch(() => {})
       return handleCORS(NextResponse.json(clean(doc)))
     }
 
@@ -406,6 +421,99 @@ async function handleRoute(request, { params }) {
         await db.collection('settings').updateOne({ id: 'site' }, { $set: b }, { upsert: true })
         const s = await db.collection('settings').findOne({ id: 'site' })
         return handleCORS(NextResponse.json(clean(s)))
+      }
+
+      // Drivers CRUD
+      if (route === '/admin/drivers' && method === 'GET') {
+        const list = await db.collection('drivers').find({}).sort({ createdAt: -1 }).toArray()
+        return handleCORS(NextResponse.json(list.map(clean)))
+      }
+      if (route === '/admin/drivers' && method === 'POST') {
+        const b = await request.json()
+        if (!b.name || !b.phone || !b.pin) return handleCORS(NextResponse.json({ error: 'name, phone, pin required' }, { status: 400 }))
+        const pin = String(b.pin).padStart(4, '0').slice(0, 6)
+        const doc = {
+          id: uuidv4(),
+          name: b.name,
+          phone: b.phone,
+          pin,
+          vehicle: b.vehicle || '',
+          license: b.license || '',
+          available: b.available !== false,
+          createdAt: new Date(),
+        }
+        await db.collection('drivers').insertOne(doc)
+        return handleCORS(NextResponse.json(clean(doc)))
+      }
+      const ad = route.match(/^\/admin\/drivers\/([\w-]+)$/)
+      if (ad && method === 'PUT') {
+        const b = await request.json()
+        delete b._id; delete b.id
+        if (b.pin) b.pin = String(b.pin).padStart(4, '0').slice(0, 6)
+        await db.collection('drivers').updateOne({ id: ad[1] }, { $set: b })
+        const d = await db.collection('drivers').findOne({ id: ad[1] })
+        return handleCORS(NextResponse.json(clean(d)))
+      }
+      if (ad && method === 'DELETE') {
+        await db.collection('drivers').deleteOne({ id: ad[1] })
+        return handleCORS(NextResponse.json({ ok: true }))
+      }
+    }
+
+    // ---- Driver portal auth ----
+    if (route === '/driver/login' && method === 'POST') {
+      const { phone, pin } = await request.json()
+      if (!phone || !pin) return handleCORS(NextResponse.json({ error: 'Phone and PIN required' }, { status: 400 }))
+      const normPhone = String(phone).replace(/\s+/g, '')
+      const driver = await db.collection('drivers').findOne({ phone: normPhone, pin: String(pin) })
+      if (!driver) return handleCORS(NextResponse.json({ error: 'Invalid credentials' }, { status: 401 }))
+      const token = 'drv-' + uuidv4() + '-' + uuidv4()
+      await db.collection('driver_sessions').insertOne({ token, driverId: driver.id, createdAt: new Date() })
+      return handleCORS(NextResponse.json({ token, driver: clean(driver) }))
+    }
+    if (route === '/driver/logout' && method === 'POST') {
+      const auth = request.headers.get('authorization') || ''
+      const token = auth.replace(/^Bearer\s+/i, '').trim()
+      if (token) await db.collection('driver_sessions').deleteOne({ token })
+      return handleCORS(NextResponse.json({ ok: true }))
+    }
+
+    // ---- Driver protected ----
+    if (route.startsWith('/driver/')) {
+      const auth = request.headers.get('authorization') || ''
+      const token = auth.replace(/^Bearer\s+/i, '').trim()
+      const session = token ? await db.collection('driver_sessions').findOne({ token }) : null
+      if (!session) return handleCORS(NextResponse.json({ error: 'Unauthorized' }, { status: 401 }))
+      const driver = await db.collection('drivers').findOne({ id: session.driverId })
+      if (!driver) return handleCORS(NextResponse.json({ error: 'Driver removed' }, { status: 401 }))
+
+      if (route === '/driver/me' && method === 'GET') {
+        return handleCORS(NextResponse.json({ driver: clean(driver) }))
+      }
+      if (route === '/driver/bookings' && method === 'GET') {
+        const list = await db.collection('bookings').find({ driverId: driver.id }).sort({ travelDate: 1 }).toArray()
+        // attach tour meetingPoint
+        const tourIds = [...new Set(list.map(b => b.tourId).filter(Boolean))]
+        const tours = await db.collection('tours').find({ id: { $in: tourIds } }).toArray()
+        const tourMap = Object.fromEntries(tours.map(t => [t.id, t]))
+        const enriched = list.map(b => ({ ...clean(b), meetingPoint: tourMap[b.tourId]?.meetingPoint, location: tourMap[b.tourId]?.location }))
+        return handleCORS(NextResponse.json(enriched))
+      }
+      const db_ = route.match(/^\/driver\/bookings\/([\w-]+)$/)
+      if (db_ && method === 'PATCH') {
+        const b = await request.json()
+        const allowed = ['tripStatus']
+        const upd = {}
+        allowed.forEach(k => { if (b[k] !== undefined) upd[k] = b[k] })
+        if (b.tripStatus === 'Completed') upd.status = 'Completed'
+        await db.collection('bookings').updateOne({ id: db_[1], driverId: driver.id }, { $set: upd })
+        const t = await db.collection('bookings').findOne({ id: db_[1] })
+        return handleCORS(NextResponse.json(clean(t)))
+      }
+      if (route === '/driver/availability' && method === 'PATCH') {
+        const { available } = await request.json()
+        await db.collection('drivers').updateOne({ id: driver.id }, { $set: { available: !!available } })
+        return handleCORS(NextResponse.json({ ok: true }))
       }
     }
 

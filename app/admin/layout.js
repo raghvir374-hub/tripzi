@@ -2,13 +2,14 @@
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X } from 'lucide-react'
+import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X, Car } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const nav = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/tours', label: 'Tours', icon: Map },
   { href: '/admin/bookings', label: 'Bookings', icon: CalendarDays },
+  { href: '/admin/drivers', label: 'Drivers', icon: Car },
   { href: '/admin/custom-tours', label: 'Custom Requests', icon: Sparkles },
   { href: '/admin/contacts', label: 'Contact Enquiries', icon: MessageSquare },
   { href: '/admin/settings', label: 'Settings', icon: Settings },

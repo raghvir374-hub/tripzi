@@ -22,16 +22,26 @@ const statusColor = {
 
 function AdminBookings() {
   const [bookings, setBookings] = useState([])
+  const [drivers, setDrivers] = useState([])
   const [open, setOpen] = useState(null)
   const [notes, setNotes] = useState('')
   const [filter, setFilter] = useState('All')
 
-  const load = () => api.get('/admin/bookings').then(setBookings)
+  const load = () => Promise.all([
+    api.get('/admin/bookings').then(setBookings),
+    api.get('/admin/drivers').then(d => setDrivers(Array.isArray(d) ? d : [])),
+  ])
   useEffect(() => { load() }, [])
 
   async function updateStatus(id, status) {
     await api.patch(`/admin/bookings/${id}`, { status })
     toast.success('Status updated')
+    load()
+  }
+  async function assignDriver(id, driverId) {
+    const patch = driverId === '__none__' ? { driverId: null } : { driverId, status: 'Assigned' }
+    await api.patch(`/admin/bookings/${id}`, patch)
+    toast.success(driverId === '__none__' ? 'Driver unassigned' : 'Driver assigned')
     load()
   }
   async function saveNotes() {
@@ -95,6 +105,15 @@ function AdminBookings() {
                 <Select value={b.status} onValueChange={v => updateStatus(b.id, v)}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>{STATUSES.map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}</SelectContent>
+                </Select>
+                <Select value={b.driverId || '__none__'} onValueChange={v => assignDriver(b.id, v)}>
+                  <SelectTrigger className="text-xs">
+                    <SelectValue placeholder="Assign driver" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">— Unassigned —</SelectItem>
+                    {drivers.map(d => <SelectItem key={d.id} value={d.id}>{d.name}{d.vehicle ? ` · ${d.vehicle}` : ''}</SelectItem>)}
+                  </SelectContent>
                 </Select>
                 <div className="flex gap-2">
                   <Button size="sm" variant="outline" className="flex-1" onClick={() => { setOpen(b); setNotes(b.notes || '') }}>Notes</Button>

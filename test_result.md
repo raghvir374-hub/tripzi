@@ -174,6 +174,38 @@ frontend:
     file: "/app/app/page.js and /app/app/tours/*, /app/app/custom-tour/*, /app/app/contact/*, /app/app/about/*, /app/app/booking-success/*"
     priority: "high"
     needs_retesting: false
+
+  - task: "PDF Voucher generation (client-side jsPDF)"
+    implemented: true
+    working: true
+    file: "/app/lib/voucher-pdf.js and /app/app/booking-success/page.js"
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Downloads a 10KB branded PDF voucher with Tripzi logo, emerald header, booking ref, tour info, traveller details, what's included, and contact footer. Uses new GET /api/bookings/lookup/:ref public endpoint. Verified with real download - PDF analyzer confirmed premium design."
+  - task: "Driver Portal (login, dashboard, trip status, mobile-first)"
+    implemented: true
+    working: true
+    file: "/app/app/driver/login/page.js, /app/app/driver/page.js, /app/app/admin/drivers/page.js"
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Phone + 4-digit PIN login. Mobile-optimized dashboard with availability toggle, vehicle card, upcoming trips list. Each trip card shows customer, date, guests, pickup + Call / WhatsApp / Maps deep-link buttons. Trip status flow: Assigned → On The Way → Picked Up → Completed. Admin can create/edit/delete drivers and assign them to bookings via a new dropdown. Verified end-to-end: created driver, assigned to booking, saw it in driver dashboard."
+  - task: "WhatsApp Business Cloud API auto-notifications to admin"
+    implemented: true
+    working: "NA"
+    file: "/app/lib/whatsapp.js and /app/app/api/[[...path]]/route.js"
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "WhatsApp Cloud API sender wired via env vars (WHATSAPP_ACCESS_TOKEN, WHATSAPP_PHONE_NUMBER_ID, ADMIN_WHATSAPP_NUMBER, WHATSAPP_GRAPH_API_VERSION). Fires fire-and-forget messages to admin when a booking/custom-tour/contact is created, and confirmation message to customer's WhatsApp when they book. Cannot verify without user's credentials. Falls back gracefully to no-op when env vars are empty (no crash)."
+
     status_history:
       - working: true
         agent: "main"
