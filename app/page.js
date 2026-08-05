@@ -20,7 +20,7 @@ const destinations = [
 ]
 
 const testimonials = [
-  { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo’s stunt double lived. Kiwi Trails made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47' },
+  { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo’s stunt double lived. Tripzi made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47' },
   { name: 'Emma Whitaker', country: 'UK', text: 'Tongariro Crossing was on my bucket list for 20 years. The certified guide, the shuttle logistics, everything was flawless.', avatar: 'https://i.pravatar.cc/120?img=45' },
   { name: 'The Chen Family', country: 'Singapore', text: 'They tailored a 9-day North Island road trip with kids in mind. Every hotel, every meal, every stop — perfect.', avatar: 'https://i.pravatar.cc/120?img=32' },
 ]
@@ -152,7 +152,7 @@ function Home() {
             </div>
           </div>
           <div>
-            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Why Kiwi Trails</div>
+            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Why Tripzi</div>
             <h2 className="font-display text-4xl md:text-5xl font-semibold mb-6 text-balance">Small teams. Local guides. Zero corner-cutting.</h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">We're a boutique tour operator based in Auckland, run by Kiwis who’ve spent decades exploring every corner of these islands. Every journey is private, hand-planned, and executed by a certified local guide.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

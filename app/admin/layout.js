@@ -45,7 +45,7 @@ export default function AdminLayout({ children }) {
       <aside className={cn('fixed lg:sticky top-0 left-0 h-screen w-64 bg-[hsl(165,40%,10%)] text-white flex-shrink-0 z-40 transform transition-transform', open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0')}>
         <div className="h-20 flex items-center gap-2 px-6 border-b border-white/10">
           <span className="flex items-center justify-center h-10 w-10 rounded-full bg-accent text-accent-foreground"><Compass className="h-5 w-5" /></span>
-          <div><div className="font-display text-lg font-semibold">Kiwi Trails</div><div className="text-[10px] uppercase tracking-widest opacity-70">Admin</div></div>
+          <div><div className="font-display text-lg font-semibold">Tripzi</div><div className="text-[10px] uppercase tracking-widest opacity-70">Admin</div></div>
         </div>
         <nav className="p-4 space-y-1">
           {nav.map(n => {
@@ -67,7 +67,7 @@ export default function AdminLayout({ children }) {
         {/* Topbar for mobile */}
         <div className="lg:hidden flex items-center justify-between h-16 px-4 bg-white border-b border-border">
           <button onClick={() => setOpen(!open)} className="p-2">{open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
-          <span className="font-display font-semibold">Kiwi Trails Admin</span>
+          <span className="font-display font-semibold">Tripzi Admin</span>
           <div className="w-9" />
         </div>
         <main className="p-6 md:p-10">{children}</main>

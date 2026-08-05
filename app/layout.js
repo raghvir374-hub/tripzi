@@ -7,10 +7,10 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans', display: 'swa
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-display', display: 'swap' })
 
 export const metadata = {
-  title: 'Kiwi Trails — Premium New Zealand Tours & Private Journeys',
+  title: 'Tripzi — Premium New Zealand Tours & Private Journeys',
   description: 'Discover Aotearoa with hand-crafted private tours across Hobbiton, Tongariro, Taupo, Auckland, Tauranga & Wellington. Book directly with local experts.',
   openGraph: {
-    title: 'Kiwi Trails — Premium New Zealand Tours',
+    title: 'Tripzi — Premium New Zealand Tours',
     description: 'Hand-crafted private journeys across New Zealand.',
     type: 'website',
   },

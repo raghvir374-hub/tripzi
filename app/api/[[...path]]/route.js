@@ -10,7 +10,7 @@ async function connectToMongo() {
     clientPromise = c.connect().then(() => c)
   }
   const client = await clientPromise
-  return client.db(process.env.DB_NAME || 'kiwi_trails')
+  return client.db(process.env.DB_NAME || 'tripzi')
 }
 
 function handleCORS(response) {
@@ -190,7 +190,7 @@ async function ensureSeed(db) {
       heroTitle: 'Aotearoa, on your terms.',
       heroSubtitle: 'Hand-crafted private tours across New Zealand — from Middle-earth to the Emerald Lakes.',
       heroImage: 'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
-      contactEmail: 'hello@kiwitrails.co.nz',
+      contactEmail: 'hello@tripzi.co.nz',
       contactPhone: '+64 21 555 0199',
       whatsappNumber: '+64215550199',
       address: '12 Quay Street, Auckland CBD, New Zealand',

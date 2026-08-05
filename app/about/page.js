@@ -10,7 +10,7 @@ function AboutPage() {
       <section className="relative pt-32 pb-16">
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">About Kiwi Trails</div>
+            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">About Tripzi</div>
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-6 text-balance">Aotearoa, told by the people who love it most.</h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">We are a small team of Auckland-based Kiwis obsessed with sharing New Zealand the right way — slowly, intimately and always in private company. Since 2013 we've guided over 3,000 travellers across every region of our two islands.</p>
             <p className="text-lg text-muted-foreground leading-relaxed">No mass buses. No rushed stops. Just you, your group, a certified local guide and a private vehicle — crafting a story you'll tell for years.</p>

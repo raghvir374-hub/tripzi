@@ -44,7 +44,7 @@ function ContactPage() {
         <div className="container grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-1 space-y-6">
             {[
-              { icon: Mail, label: 'Email', value: settings.contactEmail || 'hello@kiwitrails.co.nz' },
+              { icon: Mail, label: 'Email', value: settings.contactEmail || 'hello@tripzi.co.nz' },
               { icon: Phone, label: 'Phone / WhatsApp', value: settings.contactPhone || '+64 21 555 0199' },
               { icon: MapPin, label: 'Office', value: settings.address || '12 Quay Street, Auckland CBD' },
             ].map(c => (
