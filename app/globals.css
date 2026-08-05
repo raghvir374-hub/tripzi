@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 30% 98%;
+    --foreground: 165 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 165 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 165 25% 12%;
+    --primary: 165 60% 22%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 40 30% 94%;
+    --secondary-foreground: 165 25% 12%;
+    --muted: 40 15% 94%;
+    --muted-foreground: 165 10% 40%;
+    --accent: 32 90% 55%;
+    --accent-foreground: 165 25% 12%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 15% 88%;
+    --input: 40 15% 90%;
+    --ring: 165 60% 22%;
+    --chart-1: 165 60% 32%;
+    --chart-2: 32 90% 55%;
+    --chart-3: 200 60% 40%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+    --sidebar-background: 165 40% 10%;
+    --sidebar-foreground: 40 30% 96%;
+    --sidebar-primary: 32 90% 55%;
+    --sidebar-primary-foreground: 165 25% 12%;
+    --sidebar-accent: 165 30% 18%;
+    --sidebar-accent-foreground: 40 30% 96%;
+    --sidebar-border: 165 30% 18%;
+    --sidebar-ring: 32 90% 55%;
+  }
+  .dark {
+    --background: 165 30% 8%;
+    --foreground: 40 30% 96%;
+    --card: 165 30% 10%;
+    --card-foreground: 40 30% 96%;
+    --popover: 165 30% 10%;
+    --popover-foreground: 40 30% 96%;
+    --primary: 32 90% 55%;
+    --primary-foreground: 165 25% 12%;
+    --secondary: 165 25% 15%;
+    --secondary-foreground: 40 30% 96%;
+    --muted: 165 25% 15%;
+    --muted-foreground: 40 10% 65%;
+    --accent: 32 90% 55%;
+    --accent-foreground: 165 25% 12%;
+    --border: 165 20% 20%;
+    --input: 165 20% 20%;
+    --ring: 32 90% 55%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground font-sans; }
+  h1, h2, h3, h4 { font-family: var(--font-display), serif; letter-spacing: -0.01em; }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display), serif; }
+  .font-sans { font-family: var(--font-sans), system-ui, sans-serif; }
+  .text-balance { text-wrap: balance; }
+  .bg-hero-gradient {
+    background: linear-gradient(135deg, rgba(10,50,40,0.85) 0%, rgba(10,50,40,0.35) 50%, rgba(10,50,40,0.75) 100%);
+  }
+  .bg-card-gradient {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
+  }
+  .shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
