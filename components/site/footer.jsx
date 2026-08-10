@@ -23,6 +23,7 @@ export default function SiteFooter() {
           <ul className="space-y-2 text-sm">
             <li><Link href="/tours" className="hover:text-accent">All Tours</Link></li>
             <li><Link href="/custom-tour" className="hover:text-accent">Custom Journey</Link></li>
+            <li><Link href="/blog" className="hover:text-accent">Journal</Link></li>
             <li><Link href="/about" className="hover:text-accent">About Us</Link></li>
             <li><Link href="/contact" className="hover:text-accent">Contact</Link></li>
           </ul>

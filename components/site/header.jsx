@@ -10,6 +10,7 @@ const links = [
   { href: '/', label: 'Home' },
   { href: '/tours', label: 'Tours' },
   { href: '/custom-tour', label: 'Custom Tour' },
+  { href: '/blog', label: 'Journal' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ]

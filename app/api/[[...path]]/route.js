@@ -245,6 +245,49 @@ async function ensureSeed(db) {
     ]
     await db.collection('faqs').insertMany(seed.map(s => ({ id: uuidv4(), ...s, createdAt: now })))
   }
+  const bc = await db.collection('blog_posts').countDocuments()
+  if (bc === 0) {
+    const now = new Date()
+    const seed = [
+      {
+        title: 'The Ultimate Guide to Tongariro Alpine Crossing',
+        slug: 'ultimate-guide-tongariro-alpine-crossing',
+        excerpt: 'Everything you need to know before tackling New Zealand\u2019s greatest one-day hike \u2014 from gear lists to Emerald Lake photo spots.',
+        coverImage: 'https://images.unsplash.com/photo-1536744052983-bcf122437f48?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxUb25nYXJpcm98ZW58MHx8fHwxNzg1OTIyMjc3fDA&ixlib=rb-4.1.0&q=85',
+        author: 'Aroha, Head Guide',
+        tags: ['Hiking', 'Tongariro', 'Adventure'],
+        body: `The Tongariro Alpine Crossing is 19.4 km of raw volcanic drama, dropped in the middle of the North Island. It\u2019s regularly voted one of the greatest single-day hikes on Earth, and after guiding hundreds of parties across it, I can tell you: it lives up to the hype.\n\n## When to go\nDecember to April is the "green season" and easiest for most walkers. Winter crossings require crampons, ice-axes and a certified alpine guide.\n\n## What to pack\n- Sturdy waterproof boots (this is not a sneaker walk)\n- 2\u20133 litres of water per person\n- Wind & waterproof shell\n- Snacks with real calories \u2014 chocolate, nuts, wraps\n- Sunscreen (the sun is fierce above the tree-line)\n\n## The highlights\nStart pre-dawn at Mangatepopo, wind through the Devil\u2019s Staircase, then crest the Red Crater for that unbelievable view of the Emerald Lakes glowing turquoise below. Descend through Ketetahi Springs and finish at the northern car park \u2014 roughly 7\u20139 hours all up.\n\n## Book with us\nOur private guided Crossing includes shuttle logistics, gear checks, snacks, and a certified local who tells you the legends behind every crater. Reach out via the Custom Tour form to plan yours.`,
+        published: true,
+        publishedAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 7),
+        order: 1,
+      },
+      {
+        title: 'Hobbiton Beyond the Movie Set: 5 Insider Secrets',
+        slug: 'hobbiton-insider-secrets',
+        excerpt: 'The Shire is more than a photo backdrop. Here are five stories your Hobbiton guide might not tell you \u2014 unless you ask.',
+        coverImage: 'https://images.unsplash.com/photo-1627686973009-0de79c0c3f6b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxIb2JiaXRvbnxlbnwwfHx8fDE3ODU5MjIyNzd8MA&ixlib=rb-4.1.0&q=85',
+        author: 'Matt, Tripzi Founder',
+        tags: ['Hobbiton', 'Movies', 'Waikato'],
+        body: `Sir Peter Jackson chose Alexander Farm because of one perfect view. Standing at the Party Field looking back toward the Alexander family homestead, the rolling green hills form an amphitheatre that photographs like nowhere else on the planet.\n\n## 1. The Party Tree is real\nThat towering oak at the centre of the set is a genuine 100-year-old oak. Every leaf you see was hand-glued back on after a storm knocked them off two weeks before filming.\n\n## 2. Each Hobbit Hole has a story\nThe production team assigned each of the 44 Hobbit Holes to a specific fictional Hobbit family. Look for the tiny occupation-themed props at each door \u2014 the beekeeper, the cheesemaker, the woodcutter.\n\n## 3. The Green Dragon serves real ale\nBrewed on-site to a period-authentic recipe. The Sackville Cider is our favourite \u2014 order a half if you\u2019re driving.\n\n## 4. Best photo time is late afternoon\nGolden hour hits the western hillside from around 4:30pm in summer. Book the late tour if you can.\n\n## 5. Look up\nSmoke curls from the chimneys thanks to hidden gas burners \u2014 many visitors miss it because they\u2019re busy photographing the doors.`,
+        published: true,
+        publishedAt: new Date(now.getTime() - 1000 * 60 * 60 * 24 * 3),
+        order: 2,
+      },
+      {
+        title: '10 Days on the North Island: The Perfect Private Itinerary',
+        slug: '10-day-north-island-private-itinerary',
+        excerpt: 'From Auckland harbour to Wellington cable cars, here\u2019s the exact route we design for first-time visitors who want to see it all.',
+        coverImage: 'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
+        author: 'The Tripzi Team',
+        tags: ['Itinerary', 'North Island', 'Planning'],
+        body: `We\u2019re asked "how long do I really need on the North Island?" every day. Our answer is 10 days \u2014 enough to breathe, but tight enough to keep momentum. Here\u2019s the itinerary we book most often.\n\n## Days 1\u20132: Auckland\nArrival day is for jet-lag recovery. Day 2 covers Mount Eden panoramas, Devonport ferry, and a Waiheke Island wine crawl.\n\n## Day 3: Hobbiton + Waitomo\nMorning at the Movie Set, afternoon in the glow-worm caves. Overnight in Rotorua.\n\n## Days 4\u20135: Rotorua & Taupo\nGeothermal wonderland: Wai-O-Tapu, Polynesian Spa, Maori cultural evening. Then Taupo for Huka Falls and lakeside dinner.\n\n## Days 6\u20137: Tongariro & Napier\nAlpine Crossing on Day 6 (weather permitting), then east to Napier\u2019s art-deco streets and Hawke\u2019s Bay wineries.\n\n## Days 8\u20139: Wellington\nCable car, Te Papa museum, Weta Workshop, Cuba Street cafes. Wellington is small \u2014 walk everywhere.\n\n## Day 10: Departure\nEasy morning, transfer to Wellington airport.\n\nReach out to design yours \u2014 we can flex any of these stops.`,
+        published: true,
+        publishedAt: new Date(now.getTime() - 1000 * 60 * 60 * 24),
+        order: 3,
+      },
+    ]
+    await db.collection('blog_posts').insertMany(seed.map(s => ({ id: uuidv4(), ...s, createdAt: now, updatedAt: now })))
+  }
   })()
   return seedPromise
 }
@@ -357,6 +400,23 @@ async function handleRoute(request, { params }) {
     if (route === '/faqs' && method === 'GET') {
       const list = await db.collection('faqs').find({}).sort({ order: 1, createdAt: 1 }).toArray()
       return handleCORS(NextResponse.json(list.map(clean)))
+    }
+
+    // Public blog
+    if (route === '/blog' && method === 'GET') {
+      const url = new URL(request.url)
+      const tag = url.searchParams.get('tag')
+      const q = { published: true }
+      if (tag) q.tags = tag
+      const list = await db.collection('blog_posts').find(q).sort({ publishedAt: -1, createdAt: -1 }).toArray()
+      return handleCORS(NextResponse.json(list.map(clean)))
+    }
+    const blogMatch = route.match(/^\/blog\/([\w-]+)$/)
+    if (blogMatch && method === 'GET') {
+      const post = await db.collection('blog_posts').findOne({ slug: blogMatch[1], published: true })
+      if (!post) return handleCORS(NextResponse.json({ error: 'Not found' }, { status: 404 }))
+      const related = await db.collection('blog_posts').find({ slug: { $ne: post.slug }, published: true }).sort({ publishedAt: -1 }).limit(3).toArray()
+      return handleCORS(NextResponse.json({ post: clean(post), related: related.map(clean) }))
     }
 
     // ---- Admin auth ----
@@ -487,24 +547,37 @@ async function handleRoute(request, { params }) {
         return handleCORS(NextResponse.json(clean(s)))
       }
 
-      // Generic CMS CRUD for destinations, testimonials, faqs
-      for (const coll of ['destinations', 'testimonials', 'faqs']) {
+      // Generic CMS CRUD for destinations, testimonials, faqs, blog_posts
+      for (const coll of ['destinations', 'testimonials', 'faqs', 'blog_posts']) {
         if (route === `/admin/${coll}` && method === 'GET') {
-          const list = await db.collection(coll).find({}).sort({ order: 1, createdAt: 1 }).toArray()
+          const list = await db.collection(coll).find({}).sort({ order: 1, createdAt: -1 }).toArray()
           return handleCORS(NextResponse.json(list.map(clean)))
         }
         if (route === `/admin/${coll}` && method === 'POST') {
           const b = await request.json()
           const doc = { id: uuidv4(), ...b, createdAt: new Date() }
           if (doc.order !== undefined) doc.order = Number(doc.order)
+          if (coll === 'blog_posts') {
+            if (!doc.slug && doc.title) doc.slug = slugify(doc.title)
+            doc.updatedAt = new Date()
+            if (doc.published && !doc.publishedAt) doc.publishedAt = new Date()
+          }
           await db.collection(coll).insertOne(doc)
           return handleCORS(NextResponse.json(clean(doc)))
         }
         const m = route.match(new RegExp(`^/admin/${coll}/([\\w-]+)$`))
+        if (m && method === 'GET') {
+          const d = await db.collection(coll).findOne({ id: m[1] })
+          return handleCORS(NextResponse.json(clean(d)))
+        }
         if (m && method === 'PUT') {
           const b = await request.json()
           delete b._id; delete b.id
           if (b.order !== undefined) b.order = Number(b.order)
+          if (coll === 'blog_posts') {
+            b.updatedAt = new Date()
+            if (b.published && !b.publishedAt) b.publishedAt = new Date()
+          }
           await db.collection(coll).updateOne({ id: m[1] }, { $set: b })
           const d = await db.collection(coll).findOne({ id: m[1] })
           return handleCORS(NextResponse.json(clean(d)))

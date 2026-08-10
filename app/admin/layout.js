@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X, Car, Image, Quote, HelpCircle, Info } from 'lucide-react'
+import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X, Car, Image, Quote, HelpCircle, Info, BookOpen } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const nav = [
@@ -12,6 +12,7 @@ const nav = [
   { href: '/admin/drivers', label: 'Drivers', icon: Car },
   { href: '/admin/custom-tours', label: 'Custom Requests', icon: Sparkles },
   { href: '/admin/contacts', label: 'Contact Enquiries', icon: MessageSquare },
+  { href: '/admin/blog', label: 'Blog / Stories', icon: BookOpen },
   { href: '/admin/destinations', label: 'Destinations', icon: Image },
   { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/faqs', label: 'FAQs', icon: HelpCircle },
