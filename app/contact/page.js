@@ -45,14 +45,14 @@ function ContactPage() {
           <div className="lg:col-span-1 space-y-6">
             {[
               { icon: Mail, label: 'Email', value: settings.contactEmail || 'hello@tripzi.co.nz' },
-              { icon: Phone, label: 'Phone / WhatsApp', value: settings.contactPhone || '+64 21 555 0199' },
-              { icon: MapPin, label: 'Office', value: settings.address || '12 Quay Street, Auckland CBD' },
+              { icon: Phone, label: 'Phone / WhatsApp', value: settings.contactPhone || '021 144 9859' },
+              { icon: MapPin, label: 'Office', value: settings.address || '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand' },
             ].map(c => (
               <div key={c.label} className="flex gap-4 p-6 bg-white rounded-2xl border border-border">
                 <div className="h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center flex-shrink-0"><c.icon className="h-5 w-5" /></div>
                 <div>
                   <div className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{c.label}</div>
-                  <div className="font-semibold">{c.value}</div>
+                  <div className="font-semibold whitespace-pre-line">{c.value}</div>
                 </div>
               </div>
             ))}

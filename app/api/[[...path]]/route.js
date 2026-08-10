@@ -195,9 +195,9 @@ async function ensureSeed(db) {
       heroSubtitle: 'Hand-crafted private tours across New Zealand — from Middle-earth to the Emerald Lakes.',
       heroImage: 'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
       contactEmail: 'hello@tripzi.co.nz',
-      contactPhone: '+64 21 555 0199',
-      whatsappNumber: '+64215550199',
-      address: '12 Quay Street, Auckland CBD, New Zealand',
+      contactPhone: '021 144 9859',
+      whatsappNumber: '+64211449859',
+      address: '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand',
       // About page content
       aboutTagline: 'About Tripzi',
       aboutHeadline: 'Aotearoa, told by the people who love it most.',

@@ -1,7 +1,12 @@
+'use client'
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import { Compass, Mail, Phone, MapPin, Facebook, Instagram, Twitter } from 'lucide-react'
 
 export default function SiteFooter() {
+  const [s, setS] = useState({})
+  useEffect(() => { fetch('/api/settings').then(r => r.json()).then(setS).catch(() => {}) }, [])
+
   return (
     <footer className="bg-[hsl(165,40%,10%)] text-white/80 mt-24">
       <div className="container py-16 grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -34,18 +39,18 @@ export default function SiteFooter() {
           <ul className="space-y-2 text-sm">
             <li>Hobbiton Movie Set</li>
             <li>Tongariro National Park</li>
-            <li>Lake Taupo</li>
+            <li>Lake Taupō &amp; Rotorua</li>
             <li>Auckland &amp; Wellington</li>
-            <li>Tauranga &amp; Bay of Plenty</li>
+            <li>Bay of Islands &amp; Coromandel</li>
           </ul>
         </div>
 
         <div>
           <h4 className="font-display text-lg text-white mb-4">Get in Touch</h4>
           <ul className="space-y-3 text-sm">
-            <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-accent" /> 12 Quay Street, Auckland CBD, NZ</li>
-            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> +64 21 555 0199</li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> hello@tripzi.co.nz</li>
+            <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-accent flex-shrink-0" /> <span className="whitespace-pre-line">{s.address || '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand'}</span></li>
+            <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent flex-shrink-0" /> {s.contactPhone || '021 144 9859'}</li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent flex-shrink-0" /> {s.contactEmail || 'hello@tripzi.co.nz'}</li>
           </ul>
         </div>
       </div>
