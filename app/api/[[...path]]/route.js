@@ -177,7 +177,10 @@ const SEED_TOURS = [
   },
 ]
 
+let seedPromise = null
 async function ensureSeed(db) {
+  if (seedPromise) return seedPromise
+  seedPromise = (async () => {
   const count = await db.collection('tours').countDocuments()
   if (count === 0) {
     const now = new Date()
@@ -195,8 +198,55 @@ async function ensureSeed(db) {
       contactPhone: '+64 21 555 0199',
       whatsappNumber: '+64215550199',
       address: '12 Quay Street, Auckland CBD, New Zealand',
+      // About page content
+      aboutTagline: 'About Tripzi',
+      aboutHeadline: 'Aotearoa, told by the people who love it most.',
+      aboutBody: 'We are a small team of Auckland-based Kiwis obsessed with sharing New Zealand the right way — slowly, intimately and always in private company. Since 2013 we have guided over 3,000 travellers across every region of our two islands.\n\nNo mass buses. No rushed stops. Just you, your group, a certified local guide and a private vehicle — crafting a story you will tell for years.',
+      aboutImage1: 'https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
+      aboutImage2: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwyfHx0cmF2ZWwlMjBidXN8ZW58MHx8fHwxNzg1OTIyMzIwfDA&ixlib=rb-4.1.0&q=85',
+      aboutStat1Value: '3,000+', aboutStat1Label: 'Happy Travellers',
+      aboutStat2Value: '42', aboutStat2Label: 'NZ Destinations',
+      aboutStat3Value: '4.9★', aboutStat3Label: 'Average Rating',
+      aboutStat4Value: '12yrs', aboutStat4Label: 'Guiding Aotearoa',
     })
   }
+  const dc = await db.collection('destinations').countDocuments()
+  if (dc === 0) {
+    const now = new Date()
+    const seed = [
+      { name: 'Hobbiton', tag: 'Middle-earth', img: 'https://images.unsplash.com/photo-1578305035108-429188b9ede6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxIb2JiaXRvbnxlbnwwfHx8fDE3ODU5MjIyNzd8MA&ixlib=rb-4.1.0&q=85', order: 1 },
+      { name: 'Tongariro', tag: 'Alpine', img: 'https://images.unsplash.com/photo-1603989165791-b846b349fe3e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwzfHxUb25nYXJpcm98ZW58MHx8fHwxNzg1OTIyMjc3fDA&ixlib=rb-4.1.0&q=85', order: 2 },
+      { name: 'Lake Taupo', tag: 'Geothermal', img: 'https://images.unsplash.com/photo-1604038484630-3c95cf1459a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxMYWtlJTIwVGF1cG98ZW58MHx8fHwxNzg1OTIyMzE0fDA&ixlib=rb-4.1.0&q=85', order: 3 },
+      { name: 'Auckland', tag: 'City of Sails', img: 'https://images.unsplash.com/photo-1595125989588-36d745a2a828?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwzfHxBdWNrbGFuZCUyMHNreWxpbmV8ZW58MHx8fHwxNzg1OTIyMzE0fDA&ixlib=rb-4.1.0&q=85', order: 4 },
+      { name: 'Wellington', tag: 'Capital', img: 'https://images.unsplash.com/photo-1578959392610-495de77b85e6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxXZWxsaW5ndG9uJTIwaGFyYm9yfGVufDB8fHx8MTc4NTkyMjMxNHww&ixlib=rb-4.1.0&q=85', order: 5 },
+      { name: 'Tauranga', tag: 'Bay of Plenty', img: 'https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85', order: 6 },
+    ]
+    await db.collection('destinations').insertMany(seed.map(s => ({ id: uuidv4(), ...s, createdAt: now })))
+  }
+  const tc = await db.collection('testimonials').countDocuments()
+  if (tc === 0) {
+    const now = new Date()
+    const seed = [
+      { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo\u2019s stunt double lived. Tripzi made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47', rating: 5, order: 1 },
+      { name: 'Emma Whitaker', country: 'UK', text: 'Tongariro Crossing was on my bucket list for 20 years. The certified guide, the shuttle logistics, everything was flawless.', avatar: 'https://i.pravatar.cc/120?img=45', rating: 5, order: 2 },
+      { name: 'The Chen Family', country: 'Singapore', text: 'They tailored a 9-day North Island road trip with kids in mind. Every hotel, every meal, every stop — perfect.', avatar: 'https://i.pravatar.cc/120?img=32', rating: 5, order: 3 },
+    ]
+    await db.collection('testimonials').insertMany(seed.map(s => ({ id: uuidv4(), ...s, createdAt: now })))
+  }
+  const fc = await db.collection('faqs').countDocuments()
+  if (fc === 0) {
+    const now = new Date()
+    const seed = [
+      { question: 'Are all Tripzi tours private?', answer: 'Yes — every journey is private for you and your travelling companions. No strangers, no fixed departures, no rushed stops.', order: 1 },
+      { question: 'Do I need to pay a deposit to reserve a date?', answer: 'A 20% deposit secures your date once we confirm availability. The balance is due 7 days before your tour.', order: 2 },
+      { question: 'What if the weather is bad?', answer: 'Our guides monitor conditions in real time and will rearrange the day to keep you safe and dry. Full refunds are given for cancellations we make due to safety.', order: 3 },
+      { question: 'Can you accommodate dietary requirements?', answer: 'Absolutely. Let us know when you book — we work with restaurants across New Zealand to cater vegetarian, vegan, gluten-free, halal, and allergy-conscious meals.', order: 4 },
+      { question: 'How do I get picked up?', answer: 'For most tours we pick you up from your Auckland CBD hotel or a nominated meeting point. Regional pickups are noted on each tour page.', order: 5 },
+    ]
+    await db.collection('faqs').insertMany(seed.map(s => ({ id: uuidv4(), ...s, createdAt: now })))
+  }
+  })()
+  return seedPromise
 }
 
 function clean(doc) { if (!doc) return doc; const { _id, ...rest } = doc; return rest }
@@ -293,6 +343,20 @@ async function handleRoute(request, { params }) {
       await db.collection('contacts').insertOne(doc)
       notifyAdmin(formatContactAlert(doc)).catch(() => {})
       return handleCORS(NextResponse.json(clean(doc)))
+    }
+
+    // Public content lists (used by home + about pages)
+    if (route === '/destinations' && method === 'GET') {
+      const list = await db.collection('destinations').find({}).sort({ order: 1, createdAt: 1 }).toArray()
+      return handleCORS(NextResponse.json(list.map(clean)))
+    }
+    if (route === '/testimonials' && method === 'GET') {
+      const list = await db.collection('testimonials').find({}).sort({ order: 1, createdAt: 1 }).toArray()
+      return handleCORS(NextResponse.json(list.map(clean)))
+    }
+    if (route === '/faqs' && method === 'GET') {
+      const list = await db.collection('faqs').find({}).sort({ order: 1, createdAt: 1 }).toArray()
+      return handleCORS(NextResponse.json(list.map(clean)))
     }
 
     // ---- Admin auth ----
@@ -421,6 +485,34 @@ async function handleRoute(request, { params }) {
         await db.collection('settings').updateOne({ id: 'site' }, { $set: b }, { upsert: true })
         const s = await db.collection('settings').findOne({ id: 'site' })
         return handleCORS(NextResponse.json(clean(s)))
+      }
+
+      // Generic CMS CRUD for destinations, testimonials, faqs
+      for (const coll of ['destinations', 'testimonials', 'faqs']) {
+        if (route === `/admin/${coll}` && method === 'GET') {
+          const list = await db.collection(coll).find({}).sort({ order: 1, createdAt: 1 }).toArray()
+          return handleCORS(NextResponse.json(list.map(clean)))
+        }
+        if (route === `/admin/${coll}` && method === 'POST') {
+          const b = await request.json()
+          const doc = { id: uuidv4(), ...b, createdAt: new Date() }
+          if (doc.order !== undefined) doc.order = Number(doc.order)
+          await db.collection(coll).insertOne(doc)
+          return handleCORS(NextResponse.json(clean(doc)))
+        }
+        const m = route.match(new RegExp(`^/admin/${coll}/([\\w-]+)$`))
+        if (m && method === 'PUT') {
+          const b = await request.json()
+          delete b._id; delete b.id
+          if (b.order !== undefined) b.order = Number(b.order)
+          await db.collection(coll).updateOne({ id: m[1] }, { $set: b })
+          const d = await db.collection(coll).findOne({ id: m[1] })
+          return handleCORS(NextResponse.json(clean(d)))
+        }
+        if (m && method === 'DELETE') {
+          await db.collection(coll).deleteOne({ id: m[1] })
+          return handleCORS(NextResponse.json({ ok: true }))
+        }
       }
 
       // Drivers CRUD

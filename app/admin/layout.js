@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X, Car } from 'lucide-react'
+import { Compass, LayoutDashboard, Map, CalendarDays, Sparkles, MessageSquare, Settings, LogOut, Menu, X, Car, Image, Quote, HelpCircle, Info } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const nav = [
@@ -12,7 +12,10 @@ const nav = [
   { href: '/admin/drivers', label: 'Drivers', icon: Car },
   { href: '/admin/custom-tours', label: 'Custom Requests', icon: Sparkles },
   { href: '/admin/contacts', label: 'Contact Enquiries', icon: MessageSquare },
-  { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/admin/destinations', label: 'Destinations', icon: Image },
+  { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
+  { href: '/admin/faqs', label: 'FAQs', icon: HelpCircle },
+  { href: '/admin/settings', label: 'Site & About', icon: Settings },
 ]
 
 export default function AdminLayout({ children }) {
@@ -43,12 +46,12 @@ export default function AdminLayout({ children }) {
   return (
     <div className="min-h-screen flex bg-secondary/30">
       {/* Sidebar */}
-      <aside className={cn('fixed lg:sticky top-0 left-0 h-screen w-64 bg-[hsl(165,40%,10%)] text-white flex-shrink-0 z-40 transform transition-transform', open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0')}>
-        <div className="h-20 flex items-center gap-2 px-6 border-b border-white/10">
+      <aside className={cn('fixed lg:sticky top-0 left-0 h-screen w-64 bg-[hsl(165,40%,10%)] text-white flex-shrink-0 z-40 transform transition-transform flex flex-col', open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0')}>
+        <div className="h-20 flex items-center gap-2 px-6 border-b border-white/10 flex-shrink-0">
           <span className="flex items-center justify-center h-10 w-10 rounded-full bg-accent text-accent-foreground"><Compass className="h-5 w-5" /></span>
           <div><div className="font-display text-lg font-semibold">Tripzi</div><div className="text-[10px] uppercase tracking-widest opacity-70">Admin</div></div>
         </div>
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto">
           {nav.map(n => {
             const active = pathname === n.href || (n.href !== '/admin' && pathname.startsWith(n.href))
             return (
@@ -59,7 +62,7 @@ export default function AdminLayout({ children }) {
             )
           })}
         </nav>
-        <button onClick={logout} className="absolute bottom-6 left-6 right-6 flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:bg-white/10">
+        <button onClick={logout} className="m-4 flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:bg-white/10 flex-shrink-0">
           <LogOut className="h-4 w-4" /> Sign Out
         </button>
       </aside>

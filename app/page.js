@@ -6,32 +6,25 @@ import SiteFooter from '@/components/site/footer'
 import TourCard from '@/components/site/tour-card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ArrowRight, Search, Award, Users, Sparkles, ShieldCheck, MapPin, Star, PlayCircle } from 'lucide-react'
+import { ArrowRight, Search, Award, Users, Sparkles, ShieldCheck, MapPin, Star, PlayCircle, ChevronDown } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { api } from '@/lib/api-client'
-
-const destinations = [
-  { name: 'Hobbiton', img: 'https://images.unsplash.com/photo-1578305035108-429188b9ede6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxIb2JiaXRvbnxlbnwwfHx8fDE3ODU5MjIyNzd8MA&ixlib=rb-4.1.0&q=85', tag: 'Middle-earth' },
-  { name: 'Tongariro', img: 'https://images.unsplash.com/photo-1603989165791-b846b349fe3e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwzfHxUb25nYXJpcm98ZW58MHx8fHwxNzg1OTIyMjc3fDA&ixlib=rb-4.1.0&q=85', tag: 'Alpine' },
-  { name: 'Lake Taupo', img: 'https://images.unsplash.com/photo-1604038484630-3c95cf1459a0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxMYWtlJTIwVGF1cG98ZW58MHx8fHwxNzg1OTIyMzE0fDA&ixlib=rb-4.1.0&q=85', tag: 'Geothermal' },
-  { name: 'Auckland', img: 'https://images.unsplash.com/photo-1595125989588-36d745a2a828?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDZ8MHwxfHNlYXJjaHwzfHxBdWNrbGFuZCUyMHNreWxpbmV8ZW58MHx8fHwxNzg1OTIyMzE0fDA&ixlib=rb-4.1.0&q=85', tag: 'City of Sails' },
-  { name: 'Wellington', img: 'https://images.unsplash.com/photo-1578959392610-495de77b85e6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwxfHxXZWxsaW5ndG9uJTIwaGFyYm9yfGVufDB8fHx8MTc4NTkyMjMxNHww&ixlib=rb-4.1.0&q=85', tag: 'Capital' },
-  { name: 'Tauranga', img: 'https://images.unsplash.com/photo-1597655601841-214a4cfe8b2c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85', tag: 'Bay of Plenty' },
-]
-
-const testimonials = [
-  { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo’s stunt double lived. Tripzi made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47' },
-  { name: 'Emma Whitaker', country: 'UK', text: 'Tongariro Crossing was on my bucket list for 20 years. The certified guide, the shuttle logistics, everything was flawless.', avatar: 'https://i.pravatar.cc/120?img=45' },
-  { name: 'The Chen Family', country: 'Singapore', text: 'They tailored a 9-day North Island road trip with kids in mind. Every hotel, every meal, every stop — perfect.', avatar: 'https://i.pravatar.cc/120?img=32' },
-]
+import { cn } from '@/lib/utils'
 
 function Home() {
   const [tours, setTours] = useState([])
   const [settings, setSettings] = useState({})
+  const [destinations, setDestinations] = useState([])
+  const [testimonials, setTestimonials] = useState([])
+  const [faqs, setFaqs] = useState([])
+  const [openFaq, setOpenFaq] = useState(0)
 
   useEffect(() => {
     api.get('/tours?featured=true').then(setTours).catch(() => {})
     api.get('/settings').then(setSettings).catch(() => {})
+    api.get('/destinations').then(d => setDestinations(Array.isArray(d) ? d : [])).catch(() => {})
+    api.get('/testimonials').then(d => setTestimonials(Array.isArray(d) ? d : [])).catch(() => {})
+    api.get('/faqs').then(d => setFaqs(Array.isArray(d) ? d : [])).catch(() => {})
   }, [])
 
   return (
@@ -196,6 +189,32 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* FAQ */}
+      {faqs.length > 0 && (
+        <section className="py-24 bg-background">
+          <div className="container max-w-3xl">
+            <div className="text-center mb-14">
+              <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Good to Know</div>
+              <h2 className="font-display text-4xl md:text-5xl font-semibold">Frequently asked questions</h2>
+            </div>
+            <div className="space-y-3">
+              {faqs.map((f, i) => (
+                <div key={f.id} className={cn('bg-white border rounded-2xl overflow-hidden transition-all', openFaq === i ? 'border-primary shadow-md' : 'border-border')}>
+                  <button onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
+                    className="w-full px-6 py-5 flex items-center justify-between gap-4 text-left">
+                    <span className="font-display text-lg font-semibold pr-4">{f.question}</span>
+                    <ChevronDown className={cn('h-5 w-5 text-muted-foreground flex-shrink-0 transition-transform', openFaq === i && 'rotate-180 text-primary')} />
+                  </button>
+                  {openFaq === i && (
+                    <div className="px-6 pb-6 -mt-1 text-muted-foreground leading-relaxed whitespace-pre-wrap">{f.answer}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-24 bg-background">
