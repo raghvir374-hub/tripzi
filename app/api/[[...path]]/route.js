@@ -26,8 +26,8 @@ export async function OPTIONS() {
   return handleCORS(new NextResponse(null, { status: 200 }))
 }
 
-const ADMIN_EMAIL = 'admin@demo.com'
-const ADMIN_PASSWORD = 'admin123'
+const ADMIN_EMAIL = 'admin@trionz.com'
+const ADMIN_PASSWORD = 'prtLove@54321#'
 
 async function requireAdmin(db, request) {
   const auth = request.headers.get('authorization') || ''
