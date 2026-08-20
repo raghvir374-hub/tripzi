@@ -145,7 +145,7 @@ function Home() {
             </div>
           </div>
           <div>
-            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Why Tripzi</div>
+            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Why Tripnz</div>
             <h2 className="font-display text-4xl md:text-5xl font-semibold mb-6 text-balance">Small teams. Local guides. Zero corner-cutting.</h2>
             <p className="text-muted-foreground text-lg mb-8 leading-relaxed">We're a boutique tour operator based in Auckland, run by Kiwis who’ve spent decades exploring every corner of these islands. Every journey is private, hand-planned, and executed by a certified local guide.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

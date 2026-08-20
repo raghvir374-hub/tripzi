@@ -21,7 +21,7 @@ function AboutPage() {
       <section className="relative pt-32 pb-16">
         <div className="container grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">{s.aboutTagline || 'About Tripzi'}</div>
+            <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">{s.aboutTagline || 'About Tripnz'}</div>
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-6 text-balance">{s.aboutHeadline || 'Aotearoa, told by the people who love it most.'}</h1>
             <div className="text-lg text-muted-foreground leading-relaxed space-y-4 whitespace-pre-wrap">{s.aboutBody || 'Loading...'}</div>
           </div>

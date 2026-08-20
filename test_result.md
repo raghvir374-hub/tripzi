@@ -184,7 +184,7 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Downloads a 10KB branded PDF voucher with Tripzi logo, emerald header, booking ref, tour info, traveller details, what's included, and contact footer. Uses new GET /api/bookings/lookup/:ref public endpoint. Verified with real download - PDF analyzer confirmed premium design."
+        comment: "Downloads a 10KB branded PDF voucher with Tripnz logo, emerald header, booking ref, tour info, traveller details, what's included, and contact footer. Uses new GET /api/bookings/lookup/:ref public endpoint. Verified with real download - PDF analyzer confirmed premium design."
   - task: "Driver Portal (login, dashboard, trip status, mobile-first)"
     implemented: true
     working: true

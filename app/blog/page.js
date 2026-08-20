@@ -29,7 +29,7 @@ function BlogList() {
       <section className="relative pt-32 pb-8 bg-secondary/30">
         <div className="container">
           <div className="text-accent text-sm font-semibold uppercase tracking-widest mb-3">Stories & Guides</div>
-          <h1 className="font-display text-5xl md:text-6xl font-semibold mb-4">The Tripzi Journal</h1>
+          <h1 className="font-display text-5xl md:text-6xl font-semibold mb-4">The Tripnz Journal</h1>
           <p className="text-muted-foreground text-lg max-w-2xl">Trip journals, destination guides, and behind-the-scenes stories from our team of Kiwi guides.</p>
         </div>
       </section>

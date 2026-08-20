@@ -11,7 +11,7 @@ import { Save, ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 
-const empty = { title: '', slug: '', excerpt: '', coverImage: '', author: 'The Tripzi Team', tags: [], body: '', published: false }
+const empty = { title: '', slug: '', excerpt: '', coverImage: '', author: 'The Tripnz Team', tags: [], body: '', published: false }
 
 export function BlogForm({ initial, isNew }) {
   const router = useRouter()

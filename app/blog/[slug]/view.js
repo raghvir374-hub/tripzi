@@ -48,8 +48,8 @@ export default function BlogPostView({ initial, slug }) {
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'BlogPosting',
     headline: p.title, description: p.excerpt, image: p.coverImage,
-    datePublished: p.publishedAt, author: { '@type': 'Person', name: p.author || 'Tripzi' },
-    publisher: { '@type': 'Organization', name: 'Tripzi' },
+    datePublished: p.publishedAt, author: { '@type': 'Person', name: p.author || 'Tripnz' },
+    publisher: { '@type': 'Organization', name: 'Tripnz' },
   }
 
   return (

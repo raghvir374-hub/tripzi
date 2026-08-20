@@ -17,8 +17,8 @@ export async function generateMetadata({ params }) {
   const { slug } = await params
   const data = await fetchPost(slug)
   const p = data?.post
-  if (!p) return { title: 'Story — Tripzi' }
-  const title = `${p.title} — Tripzi`
+  if (!p) return { title: 'Story — Tripnz' }
+  const title = `${p.title} — Tripnz`
   return {
     title,
     description: p.excerpt,

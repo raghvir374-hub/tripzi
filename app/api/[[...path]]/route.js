@@ -11,7 +11,7 @@ async function connectToMongo() {
     clientPromise = c.connect().then(() => c)
   }
   const client = await clientPromise
-  return client.db(process.env.DB_NAME || 'tripzi')
+  return client.db(process.env.DB_NAME || 'tripnz')
 }
 
 function handleCORS(response) {
@@ -194,12 +194,12 @@ async function ensureSeed(db) {
       heroTitle: 'Aotearoa, on your terms.',
       heroSubtitle: 'Hand-crafted private tours across New Zealand — from Middle-earth to the Emerald Lakes.',
       heroImage: 'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
-      contactEmail: 'hello@tripzi.co.nz',
+      contactEmail: 'hello@tripnz.co.nz',
       contactPhone: '021 144 9859',
       whatsappNumber: '+64211449859',
       address: '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand',
       // About page content
-      aboutTagline: 'About Tripzi',
+      aboutTagline: 'About Tripnz',
       aboutHeadline: 'Aotearoa, told by the people who love it most.',
       aboutBody: 'We are a small team of Auckland-based Kiwis obsessed with sharing New Zealand the right way — slowly, intimately and always in private company. Since 2013 we have guided over 3,000 travellers across every region of our two islands.\n\nNo mass buses. No rushed stops. Just you, your group, a certified local guide and a private vehicle — crafting a story you will tell for years.',
       aboutImage1: 'https://images.unsplash.com/photo-1465056836041-7f43ac27dcb5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwxfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
@@ -227,7 +227,7 @@ async function ensureSeed(db) {
   if (tc === 0) {
     const now = new Date()
     const seed = [
-      { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo\u2019s stunt double lived. Tripzi made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47', rating: 5, order: 1 },
+      { name: 'Priya & Arjun', country: 'India', text: 'The Hobbiton private tour was pure magic — our guide even knew where Frodo\u2019s stunt double lived. Tripnz made our honeymoon.', avatar: 'https://i.pravatar.cc/120?img=47', rating: 5, order: 1 },
       { name: 'Emma Whitaker', country: 'UK', text: 'Tongariro Crossing was on my bucket list for 20 years. The certified guide, the shuttle logistics, everything was flawless.', avatar: 'https://i.pravatar.cc/120?img=45', rating: 5, order: 2 },
       { name: 'The Chen Family', country: 'Singapore', text: 'They tailored a 9-day North Island road trip with kids in mind. Every hotel, every meal, every stop — perfect.', avatar: 'https://i.pravatar.cc/120?img=32', rating: 5, order: 3 },
     ]
@@ -237,7 +237,7 @@ async function ensureSeed(db) {
   if (fc === 0) {
     const now = new Date()
     const seed = [
-      { question: 'Are all Tripzi tours private?', answer: 'Yes — every journey is private for you and your travelling companions. No strangers, no fixed departures, no rushed stops.', order: 1 },
+      { question: 'Are all Tripnz tours private?', answer: 'Yes — every journey is private for you and your travelling companions. No strangers, no fixed departures, no rushed stops.', order: 1 },
       { question: 'Do I need to pay a deposit to reserve a date?', answer: 'A 20% deposit secures your date once we confirm availability. The balance is due 7 days before your tour.', order: 2 },
       { question: 'What if the weather is bad?', answer: 'Our guides monitor conditions in real time and will rearrange the day to keep you safe and dry. Full refunds are given for cancellations we make due to safety.', order: 3 },
       { question: 'Can you accommodate dietary requirements?', answer: 'Absolutely. Let us know when you book — we work with restaurants across New Zealand to cater vegetarian, vegan, gluten-free, halal, and allergy-conscious meals.', order: 4 },
@@ -266,7 +266,7 @@ async function ensureSeed(db) {
         slug: 'hobbiton-insider-secrets',
         excerpt: 'The Shire is more than a photo backdrop. Here are five stories your Hobbiton guide might not tell you \u2014 unless you ask.',
         coverImage: 'https://images.unsplash.com/photo-1627686973009-0de79c0c3f6b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxIb2JiaXRvbnxlbnwwfHx8fDE3ODU5MjIyNzd8MA&ixlib=rb-4.1.0&q=85',
-        author: 'Matt, Tripzi Founder',
+        author: 'Matt, Tripnz Founder',
         tags: ['Hobbiton', 'Movies', 'Waikato'],
         body: `Sir Peter Jackson chose Alexander Farm because of one perfect view. Standing at the Party Field looking back toward the Alexander family homestead, the rolling green hills form an amphitheatre that photographs like nowhere else on the planet.\n\n## 1. The Party Tree is real\nThat towering oak at the centre of the set is a genuine 100-year-old oak. Every leaf you see was hand-glued back on after a storm knocked them off two weeks before filming.\n\n## 2. Each Hobbit Hole has a story\nThe production team assigned each of the 44 Hobbit Holes to a specific fictional Hobbit family. Look for the tiny occupation-themed props at each door \u2014 the beekeeper, the cheesemaker, the woodcutter.\n\n## 3. The Green Dragon serves real ale\nBrewed on-site to a period-authentic recipe. The Sackville Cider is our favourite \u2014 order a half if you\u2019re driving.\n\n## 4. Best photo time is late afternoon\nGolden hour hits the western hillside from around 4:30pm in summer. Book the late tour if you can.\n\n## 5. Look up\nSmoke curls from the chimneys thanks to hidden gas burners \u2014 many visitors miss it because they\u2019re busy photographing the doors.`,
         published: true,
@@ -278,7 +278,7 @@ async function ensureSeed(db) {
         slug: '10-day-north-island-private-itinerary',
         excerpt: 'From Auckland harbour to Wellington cable cars, here\u2019s the exact route we design for first-time visitors who want to see it all.',
         coverImage: 'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxOZXclMjBaZWFsYW5kJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc4NTkyMjI3N3ww&ixlib=rb-4.1.0&q=85',
-        author: 'The Tripzi Team',
+        author: 'The Tripnz Team',
         tags: ['Itinerary', 'North Island', 'Planning'],
         body: `We\u2019re asked "how long do I really need on the North Island?" every day. Our answer is 10 days \u2014 enough to breathe, but tight enough to keep momentum. Here\u2019s the itinerary we book most often.\n\n## Days 1\u20132: Auckland\nArrival day is for jet-lag recovery. Day 2 covers Mount Eden panoramas, Devonport ferry, and a Waiheke Island wine crawl.\n\n## Day 3: Hobbiton + Waitomo\nMorning at the Movie Set, afternoon in the glow-worm caves. Overnight in Rotorua.\n\n## Days 4\u20135: Rotorua & Taupo\nGeothermal wonderland: Wai-O-Tapu, Polynesian Spa, Maori cultural evening. Then Taupo for Huka Falls and lakeside dinner.\n\n## Days 6\u20137: Tongariro & Napier\nAlpine Crossing on Day 6 (weather permitting), then east to Napier\u2019s art-deco streets and Hawke\u2019s Bay wineries.\n\n## Days 8\u20139: Wellington\nCable car, Te Papa museum, Weta Workshop, Cuba Street cafes. Wellington is small \u2014 walk everywhere.\n\n## Day 10: Departure\nEasy morning, transfer to Wellington airport.\n\nReach out to design yours \u2014 we can flex any of these stops.`,
         published: true,

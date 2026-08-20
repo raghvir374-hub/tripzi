@@ -39,7 +39,7 @@ function AdminLoginPage() {
           <div className="flex items-center gap-2 mb-8">
             <span className="flex items-center justify-center h-11 w-11 rounded-full bg-primary text-primary-foreground"><Compass className="h-6 w-6" /></span>
             <div>
-              <div className="font-display text-xl font-semibold">Tripzi</div>
+              <div className="font-display text-xl font-semibold">Tripnz</div>
               <div className="text-xs text-muted-foreground">Admin Console</div>
             </div>
           </div>

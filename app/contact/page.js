@@ -44,7 +44,7 @@ function ContactPage() {
         <div className="container grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-1 space-y-6">
             {[
-              { icon: Mail, label: 'Email', value: settings.contactEmail || 'hello@tripzi.co.nz' },
+              { icon: Mail, label: 'Email', value: settings.contactEmail || 'hello@tripnz.co.nz' },
               { icon: Phone, label: 'Phone / WhatsApp', value: settings.contactPhone || '021 144 9859' },
               { icon: MapPin, label: 'Office', value: settings.address || '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand' },
             ].map(c => (

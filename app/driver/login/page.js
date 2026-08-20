@@ -39,7 +39,7 @@ function DriverLoginPage() {
           <div className="flex items-center gap-2 mb-8">
             <span className="flex items-center justify-center h-11 w-11 rounded-full bg-primary text-primary-foreground"><Car className="h-6 w-6" /></span>
             <div>
-              <div className="font-display text-lg font-semibold">Tripzi</div>
+              <div className="font-display text-lg font-semibold">Tripnz</div>
               <div className="text-xs text-muted-foreground">Driver App</div>
             </div>
           </div>

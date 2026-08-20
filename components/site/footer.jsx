@@ -13,7 +13,7 @@ export default function SiteFooter() {
         <div>
           <div className="flex items-center gap-2 mb-4">
             <span className="flex items-center justify-center h-10 w-10 rounded-full bg-accent text-accent-foreground"><Compass className="h-5 w-5" /></span>
-            <span className="font-display text-2xl font-semibold text-white">Tripzi</span>
+            <span className="font-display text-2xl font-semibold text-white">Tripnz</span>
           </div>
           <p className="text-sm leading-relaxed">Hand-crafted private tours across Aotearoa. From Middle-earth to Middle-of-nowhere — we plan every mile.</p>
           <div className="flex gap-3 mt-6">
@@ -50,13 +50,13 @@ export default function SiteFooter() {
           <ul className="space-y-3 text-sm">
             <li className="flex items-start gap-2"><MapPin className="h-4 w-4 mt-0.5 text-accent flex-shrink-0" /> <span className="whitespace-pre-line">{s.address || '3/36 Abbotsford Street, Whitiora, Hamilton 3200, New Zealand'}</span></li>
             <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent flex-shrink-0" /> {s.contactPhone || '021 144 9859'}</li>
-            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent flex-shrink-0" /> {s.contactEmail || 'hello@tripzi.co.nz'}</li>
+            <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent flex-shrink-0" /> {s.contactEmail || 'hello@tripnz.co.nz'}</li>
           </ul>
         </div>
       </div>
       <div className="border-t border-white/10">
         <div className="container py-6 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-white/60">
-          <span>© {new Date().getFullYear()} Tripzi. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Tripnz. All rights reserved.</span>
           <div className="flex gap-6"><a href="#" className="hover:text-accent">Privacy</a><a href="#" className="hover:text-accent">Terms</a></div>
         </div>
       </div>

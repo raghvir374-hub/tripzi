@@ -40,7 +40,7 @@ export default function SiteHeader() {
           <span className={cn('flex items-center justify-center h-10 w-10 rounded-full transition-colors', transparent ? 'bg-white/15 text-white' : 'bg-primary text-primary-foreground')}>
             <Compass className="h-5 w-5" />
           </span>
-          <span className={cn('font-display text-xl font-semibold tracking-tight', transparent ? 'text-white' : 'text-foreground')}>Tripzi</span>
+          <span className={cn('font-display text-xl font-semibold tracking-tight', transparent ? 'text-white' : 'text-foreground')}>Tripnz</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

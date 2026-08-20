@@ -158,7 +158,7 @@ function TripCard({ b, onStatus, readOnly }) {
       </div>
       <div className="grid grid-cols-3 divide-x divide-border border-t border-border">
         <a href={`tel:${b.phone}`} className="py-3 flex items-center justify-center gap-1.5 text-sm font-medium text-primary hover:bg-secondary/60"><Phone className="h-4 w-4" /> Call</a>
-        <a href={`https://wa.me/${(b.whatsapp || b.phone).replace(/\D/g,'')}?text=${encodeURIComponent(`Kia ora ${b.fullName.split(' ')[0]}, this is your Tripzi driver for ${b.tourTitle}.`)}`}
+        <a href={`https://wa.me/${(b.whatsapp || b.phone).replace(/\D/g,'')}?text=${encodeURIComponent(`Kia ora ${b.fullName.split(' ')[0]}, this is your Tripnz driver for ${b.tourTitle}.`)}`}
            target="_blank" rel="noreferrer"
            className="py-3 flex items-center justify-center gap-1.5 text-sm font-medium text-green-600 hover:bg-secondary/60">
           <MessageCircle className="h-4 w-4" /> WhatsApp
